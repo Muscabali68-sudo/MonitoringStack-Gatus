@@ -1,4 +1,4 @@
-resource "aws_ecr_repository" "gatus_ecr" {
+resource "aws_ecr_repository" "gatus_repo" {
   name                 = var.repository_name
   image_tag_mutability = var.image_tag_mutability 
   force_delete         = var.force_delete 
