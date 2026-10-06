@@ -44,20 +44,7 @@ resource "aws_iam_openid_connect_provider" "github_actions" {
  }
   }
 
- 
-
-
-
-
-
-
-
-
-  
-
-
-
-  #premison role for build push
+#premison role for build push
 resource "aws_iam_policy" "build_push" {
     name = var.build_push_policy_name
     role = aws_iam_role.build_push.id
