@@ -3,9 +3,5 @@ variable "bucket_name" {
   description = "S3 bucket name in AWS"
 }
 
-variable name_tag {
-  type        = string
-  description = "Name tag applied to the S3 bucket"
-}
 
 
