@@ -1,4 +1,4 @@
-```hcl
+
 variable "alb_name" {
   description = "Name of the Application Load Balancer"
   type        = string
@@ -19,20 +19,19 @@ variable "alb_type" {
   type        = string
 }
 
-variable "alb_security_group_ids" {
+variable "alb_sg_ids" {
   description = "List of security group IDs attached to the ALB"
   type        = list(string)
 }
 
-variable "alb_subnet_ids" {
+variable "public_subnet_ids" {
   description = "List of subnet IDs where the ALB will be deployed"
   type        = list(string)
 }
-
-variable "target_group_name" {
-  description = "Name of the ALB target group"
-  type        = string
-}
+variable "target_group_name" { 
+  description = "Name of the ALB target group" 
+  type        = string 
+ }
 
 variable "target_group_port" {
   description = "Port on which targets receive traffic"
@@ -44,10 +43,6 @@ variable "target_group_protocol" {
   type        = string
 }
 
-variable "target_type" {
-  description = "Type of target registered with the target group, such as ip or instance"
-  type        = string
-}
 
 variable "health_check_path" {
   description = "URL path used by the health check"
@@ -74,10 +69,6 @@ variable "unhealthy_threshold" {
   type        = number
 }
 
-variable "health_check_timeout" {
-  description = "Time in seconds to wait for a health check response"
-  type        = number
-}
 
 variable "health_check_interval" {
   description = "Approximate interval in seconds between health checks"
@@ -112,6 +103,10 @@ variable "https_listener_protocol" {
 variable "redirect_status_code" {
   description = "HTTP redirect response code used to redirect clients to HTTPS"
   type        = string
+}
+variable "timeout" {
+   description = "health check's timeout"
+   type        = number  
 }
 
 variable "ssl_policy" {
