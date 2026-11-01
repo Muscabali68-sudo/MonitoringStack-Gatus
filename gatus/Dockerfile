@@ -1,8 +1,5 @@
 FROM golang:alpine3.24 AS builder
 
-
-RUN adduser -u 1001 -D nonroot
-
 WORKDIR /app
 
 COPY go.mod go.sum ./
@@ -14,12 +11,12 @@ COPY . .
 RUN CGO_ENABLED=0 go build -ldflags="-s -w" -o gatus .
 
 
-FROM scratch
+FROM gcr.io/distroless/static-debian13:nonroot
 
-COPY --from=builder /app/gatus gatus
-COPY --from=builder /app/gatus gatus/config/config.yaml
+COPY --from=builder /app/gatus .
+COPY --from=builder /app/config.yaml ./config/config.yaml
 
-USER nonroot
+ENV GATUS_CONFIG_PATH=/config/config.yaml
 
 EXPOSE 8080
 
