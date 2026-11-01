@@ -13,8 +13,8 @@ RUN CGO_ENABLED=0 go build -ldflags="-s -w" -o gatus .
 
 FROM gcr.io/distroless/static-debian13:nonroot
 
-COPY --from=builder /app/gatus .
-COPY --from=builder /app/config.yaml ./config/config.yaml
+COPY --from=builder /app/gatus /gatus
+COPY --from=builder /app/config.yaml /config/config.yaml
 
 ENV GATUS_CONFIG_PATH=/config/config.yaml
 
