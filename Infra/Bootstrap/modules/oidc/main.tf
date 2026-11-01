@@ -59,6 +59,8 @@ resource "aws_iam_role_policy" "build_push" {
           "ecr:UploadLayerPart",
           "ecr:CompleteLayerUpload",
            "ecr:DescribeImages",
+           "ecr:GetAuthorizationToken",
+           "ecr:BatchCheckLayerAvailability",
           "ecr:BatchGetImage"
         ]
 
