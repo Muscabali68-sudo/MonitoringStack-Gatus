@@ -99,7 +99,7 @@ resource "aws_iam_role" "terrafrom_deployment" {
           }
 
           StringLike = {
-            "token.actions.githubusercontent.com:sub" = "repo:Muscabali68-sudo*"
+            "token.actions.githubusercontent.com:sub" = "repo:Muscabali68-sudo/MonitoringStack-Gatus:ref:refs/heads/main"
           }
         }
       }
