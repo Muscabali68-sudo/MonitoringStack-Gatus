@@ -36,29 +36,29 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@03f1aad4c6c7ffd436567f42f9384779290529bd # v2.1.7
 
-      - name: Check whether image exists
-        id: check-image
-        shell: bash
-        run: |
-          if result=$(aws ecr describe-images \
-            --repository-name "$ECR_REPOSITORY" \
-            --image-ids "imageTag=$IMAGE_TAG" 2>&1); then
-            echo "exists=true" >> "$GITHUB_OUTPUT"
-            echo "Image already exists. We will reuse it."
-          elif [[ "$result" == *"ImageNotFoundException"* ]]; then
-            echo "exists=false" >> "$GITHUB_OUTPUT"
-            echo "Image does not exist. We will build it."
-          else
-            echo "$result"
-            exit 1
-          fi
-
-      - name: Build and push Gatus image
-        if: steps.check-image.outputs.exists == 'false'
+      - name: Build Gatus image
         shell: bash
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
           IMAGE_URI="$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
           docker build --platform linux/arm64 --tag "$IMAGE_URI" ./gatus
+
+      - name: Scan image with Trivy
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          scan-type: image
+          image-ref: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          format: table
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: os,library
+          severity: CRITICAL,HIGH
+
+      - name: Push Gatus image to ECR
+        shell: bash
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        run: |
+          IMAGE_URI="$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
           docker push "$IMAGE_URI"
