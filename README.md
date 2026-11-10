@@ -336,7 +336,7 @@ The project was planned and tracked in Jira as a structured engineering delivery
 - Work was organised into epics: containerisation, AWS infrastructure, application deployment, Terraform, security and authentication, CI/CD, and documentation
 - Each epic was broken into tasks with milestones and deadlines, for example the ECS epic covering the cluster, task definition, service, target group integration, and IAM
 - Task dependencies were tracked so that work was sequenced correctly, for example VPC before ECS, and ALB with security groups before traffic validation
-- Errors and resolutions were documented as they occurred, forming the troubleshooting log below
+- Errors and resolutions were documented as they occurred
 
 <!-- Add a Jira board screenshot at assets/jira-board.png -->
 ![Jira Board](assets/jira-board.png)
