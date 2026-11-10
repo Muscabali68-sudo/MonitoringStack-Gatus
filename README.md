@@ -26,7 +26,6 @@
 - [CI/CD Pipelines](#cicd-pipelines)
 - [Project Delivery](#project-delivery)
 - [Local Setup](#local-setup)
-- [Troubleshooting Log](#troubleshooting-log)
 - [Future Improvements](#future-improvements)
 
 ---
