@@ -353,7 +353,7 @@ The project was planned and tracked in Jira as a structured engineering delivery
 
 ```bash
 git clone https://github.com/Muscabali68-sudo/MonitoringStack-Gatus
-cd REPO
+cd MonitoringStack-Gatu
 ```
 
 #### 2. Build the Image
