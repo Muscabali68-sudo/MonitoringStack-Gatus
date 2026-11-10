@@ -1,6 +1,13 @@
-# MonitoringStack-Gatus
+# Gatus Monitoring Platform on AWS 
 
-# Gatus Monitoring Platform on AWS (ECS Fargate, Terraform, CI/CD)
+![App](https://img.shields.io/badge/App-Gatus%20Monitoring-00ADD8)
+![Compute](https://img.shields.io/badge/Compute-ECS%20Fargate-FF9900)
+![IaC](https://img.shields.io/badge/IaC-Terraform%20Modules-7B42BC)
+![State](https://img.shields.io/badge/State-S3%20Native%20Locking-569A31)
+![TLS](https://img.shields.io/badge/TLS-ACM%20HTTPS-2E8B57)
+![Storage](https://img.shields.io/badge/Storage-EFS-E7157B)
+![Image](https://img.shields.io/badge/Image-Distroless%20Non--root-2496ED)
+![Auth](https://img.shields.io/badge/Auth-GitHub%20OIDC-181717)
 
 ![Architecture Diagram](assets/ecs-diagram.png)
 
@@ -90,13 +97,16 @@ Gatus was selected for the following reasons:
 
 ### 4. How many users are there, or how many are expected?
 
-<!-- FILL THIS IN WITH REAL NUMBERS AND KEEP IT HONEST -->
+This is a portfolio project, so it only serves a handful of users.
 
-- **Current:** [NUMBER] users, [who they are]
-- **Expected:** [NUMBER] users, [one sentence on why this is realistic]
-- **Sizing:** [CPU / memory] with [N] task(s)
+I still designed it to be reliable. The network uses two Availability Zones (`eu-central-1a` and `eu-central-1b`). The load balancer sits in the public subnets and the ECS tasks sit in the private subnets. This means the project does not depend on one single data centre location.
 
-Gatus is lightweight. Load is driven mainly by the outbound checks it performs rather than by dashboard visitors. CPU, memory, and desired task count are exposed as Terraform variables, so scaling is a variable change and a redeployment.
+Two zones alone are not enough, though. If the service runs only one task, that task is still a single point of failure. To fix this, I made the task count a Terraform variable. Running more tasks across both zones only needs a variable change and a redeploy. No redesign is needed.
+
+I did not set up auto scaling yet and that was on purpose. Gatus is very light. Most of its work comes from the checks it sends out, not from people opening the dashboard. For a handful of users, auto scaling would add extra cost and extra work without any real benefit. First I would check the real usage and cost. If usage grows, I would add scaling based on CPU and memory. This is listed under Future Improvements.
+
+I followed production-style decisions, but kept the size small to match the real usage.
+
 
 ---
 
