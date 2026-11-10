@@ -94,7 +94,7 @@ Gatus was selected for the following reasons:
 > [!NOTE]
 > For a small, always-on workload, a single VM is typically cheaper. Fargate was selected for its self-healing service model and production-style network design. See [Cost & Availability Decisions](#cost--availability-decisions).
 
-### 4. How many users are there, or how many are expected?
+### 4. How many users are there or how many are expected?
 
 This is a portfolio project, so it only serves a handful of users.
 
